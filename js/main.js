@@ -1,105 +1,114 @@
-let items = document.querySelectorAll('.item');
-let itemsHead = document.querySelectorAll('.item h3');
+let items = Array.from(document.querySelectorAll('.item'));
+let squares = Array.from(document.querySelectorAll('.item h3'));
 let title = document.querySelector('.title');
 let resetBtn = document.querySelector('.reset');
 
-let squares = [];
+let squareText = [];
 let turn = 'x';
 
 
-
-// itirator to set the turn of x and o
+// fill item by x or o
 for (let i = 0; i < items.length; i++) {
     
     items[i].addEventListener('click', function(){
 
-        if (itemsHead[i].innerHTML == '') {
+        if (squares[i].innerHTML == '') {
 
             if (turn === 'x'){
 
-                itemsHead[i].innerHTML = 'x';
+                squares[i].innerHTML = 'x';
                 turn = 'o';
                 title.innerHTML = 'turn of { O }';
             }
             else if (turn === 'o'){
     
-                itemsHead[i].innerHTML = 'o';
+                squares[i].innerHTML = 'o';
                 turn = 'x';
                 title.innerHTML = 'turn of { X }';
             }
         }
         winner()
-        
     })
 }
 
 // function to declare the winner and reset the game
 function displayResult(num1,num2,num3) {
 
-    title.innerHTML = `the winner is ${squares[num1]}`
-        items[num1 - 1].style.background = '#000';
-        items[num2 - 1].style.background = '#000';
-        items[num3 - 1].style.background = '#000';
+    title.innerHTML = `the winner is ${squares[num1].innerHTML}`
+        items[num1].style.background = '#000';
+        items[num2].style.background = '#000';
+        items[num3].style.background = '#000';
 
         setInterval(function(){title.innerHTML += '.'},800);
-
-        setTimeout(function(){location.reload()},3000)
+        setTimeout(function(){location.reload()},3000);
 }
 
 // function to detect the winner
 function winner() {
 
-    for (let i = 1; i <10; i++) {
+
+    if (squares[0].innerHTML == squares[1].innerHTML && squares[1].innerHTML == squares[2].innerHTML && squares[0].innerHTML != '' ) {
         
-        squares[i] = document.getElementById('sq' + i).innerHTML;
+        displayResult(0, 1, 2);
     }
-    if (squares[1] == squares[2] && squares[2] == squares[3] &&squares[1] != '' ) {
+    if (squares[3].innerHTML == squares[4].innerHTML && squares[4].innerHTML == squares[5].innerHTML && squares[3].innerHTML != '' ) {
+
+        displayResult(3, 4, 5);
+    }
+    if (squares[6].innerHTML == squares[7].innerHTML && squares[7].innerHTML == squares[8].innerHTML && squares[6].innerHTML != '' ) {
+
+        displayResult(6, 7, 8);
+    }
+
+
+
+    if (squares[0].innerHTML == squares[3].innerHTML && squares[3].innerHTML == squares[6].innerHTML && squares[0].innerHTML != '' ) {
         
-        displayResult(1, 2, 3);
+        displayResult(0, 3, 6);
     }
-    if (squares[4] == squares[5] && squares[5] == squares[6] &&squares[4] != '' ) {
+    if (squares[1].innerHTML == squares[4].innerHTML && squares[4].innerHTML == squares[7].innerHTML && squares[1].innerHTML != '' ) {
 
-        displayResult(4, 5, 6);
-    }
-    if (squares[7] == squares[8] && squares[8] == squares[9] &&squares[7] != '' ) {
-
-        displayResult(7, 8, 9);
-    }
-
-
-
-    if (squares[1] == squares[4] && squares[4] == squares[7] &&squares[1] != '' ) {
-        
         displayResult(1, 4, 7);
     }
-    if (squares[2] == squares[5] && squares[5] == squares[8] &&squares[2] != '' ) {
-
+    if (squares[2].innerHTML == squares[5].innerHTML && squares[5].innerHTML == squares[8].innerHTML && squares[2].innerHTML != '' ) {
+        
         displayResult(2, 5, 8);
     }
-    if (squares[3] == squares[6] && squares[6] == squares[9] &&squares[3] != '' ) {
-        
-        displayResult(3, 6, 9);
-    }
 
 
 
-    if (squares[1] == squares[5] && squares[5] == squares[9] &&squares[1] != '' ) {
+    if (squares[0].innerHTML == squares[4].innerHTML && squares[4].innerHTML == squares[8].innerHTML && squares[0].innerHTML != '' ) {
         
-        displayResult(1, 5, 9);
+        displayResult(0, 4, 8);
     }
-    if (squares[3] == squares[5] && squares[5] == squares[7] &&squares[3] != '' ) {
+    if (squares[2].innerHTML == squares[4].innerHTML && squares[4].innerHTML == squares[6].innerHTML && squares[2].innerHTML != '' ) {
         
-        displayResult(3, 5, 7);
+        displayResult(2, 4, 6);
     }
-    
+    else {
+
+        for (let i = 0; i < squares.length; i++) {
+            
+            squareText[i] = squares[i].innerHTML;
+        }
+        
+        if (!squareText.includes('')){
+
+            title.innerHTML = 'Tie Game';
+            setInterval(function(){title.innerHTML += '.'},800);
+            setTimeout(function(){location.reload()},3000);
+        }
+    }
+
 }
+
 
 // reset button
 resetBtn.addEventListener('click', function () {
 
-    for (let i = 0; i < itemsHead.length; i++) {
+    for (let i = 0; i < squares.length; i++) {
         
-        itemsHead[i].innerHTML = '';
+        squares[i].innerHTML = '';
     }
   })
 
