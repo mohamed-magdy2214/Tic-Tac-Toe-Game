@@ -1,0 +1,25 @@
+@media screen and (max-width: 599px) {
+    .game {
+        width: 100% !important;
+        height: 100% !important;
+    }
+    .game .container {
+        padding: 0px 5px !important;
+    }
+}
+@media screen and (min-width:600px) and (max-width:767px) {
+    .game {
+        width: 75% !important;
+    }
+}
+@media screen and (min-width:768px) and (max-width:991px) {
+    .game {
+        width: 60% !important;
+    }
+}
+@media screen and (min-width:992px) and (max-width:1199px) {
+    
+}
+@media screen and (min-width:1200px) {
+
+    }
